@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: ecovalue-india-api
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false          # set manually in Render dashboard
+      - key: DATABASE_URL
+        sync: false          # leave blank for SQLite, or add Postgres URL
+    disk:
+      name: ecovalue-db
+      mountPath: /data
+      sizeGB: 1
